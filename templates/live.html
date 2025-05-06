@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .instructions-card {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .instructions-card h5 {
+        color: #3A7F85;
+        font-weight: bold;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    .instructions-card p {
+        margin: 0;
+        font-size: 1rem;
+        color: #6c757d;
+        line-height: 1.4;
+    }
+    .instructions-card i {
+        font-size: 1.5rem;
+        color: #3A7F85;
+        margin-right: 10px; /* Menambahkan jarak antara ikon dan teks */
+    }
+    .d-flex {
+        gap: 10px; /* Alternatif untuk mengatur jarak antara ikon dan teks */
+    }
+
+    .live-cam {
+        color: #3A7F85;
+        font-weight: bold;
+    }
+
+    /* Styling untuk Live Camera */
+    .camera-container {
+        border: 2px dashed #3A7F85;
+        border-radius: 10px;
+        background: #f8f9fa;
+        min-height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+    .camera-placeholder {
+        text-align: center;
+        padding: 2rem;
+    }
+    .camera-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+    }
+    .controls {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+    #camera-status {
+        font-size: 0.9rem;
+        margin-top: 10px;
+        text-align: center;
+    }
+    #live-camera {
+        max-height: 300px;
+        width: auto;
+        max-width: 100%;
+    }
+</style>
+
+<div class="container mt-5">
+    <h1 class="mb-4 text-center live-cam">Live Camera</h1>
+
+    <!-- Instructions Section -->
+    <div class="instructions-card mx-auto" style="max-width: 600px;">
+        <h5><i class="bi bi-info-circle-fill"></i> Cara Menggunakan Fitur Live Camera</h5>
+        <p><i class="bi bi-camera-video"></i> 1. Klik <strong>"Hidupkan Kamera"</strong> untuk mengaktifkan kamera perangkat Anda.</p>
+        <p><i class="bi bi-arrow-up-right-circle"></i> 2. Arahkan kamera lurus dengan plat nomor kendaraan.</p>
+        <p><i class="bi bi-camera-fill"></i> 3. Klik <strong>"Capture"</strong> untuk mengambil gambar plat nomor.</p>
+        <p><i class="bi bi-check-circle-fill"></i> 4. Hasil analisis akan ditampilkan di bawah kamera.</p>
+    </div>
+
+    <!-- Camera Section -->
+    <div class="card border-success w-75 mx-auto" style="max-width: 600px;">
+        <div class="card-body">
+            <div class="camera-container">
+                <div class="camera-placeholder">
+                    <i class="bi bi-camera-video-off camera-icon text-muted"></i>
+                    <p class="text-muted mb-1">Kamera tidak aktif</p>
+                    <small class="text-muted">Klik tombol di bawah untuk menghidupkan</small>
+                </div>
+                
+                <div class="video-container d-none">
+                    <video id="live-camera" autoplay playsinline></video>
+                </div>
+            </div>
+
+            <div id="camera-status" class="text-muted mt-2 text-center">
+                Status: Kamera mati
+            </div>
+
+            <div class="controls">
+                <button id="toggle-camera" class="btn btn-success btn-lg">
+                    <i class="bi bi-camera-video me-2"></i> Hidupkan Kamera
+                </button>
+                <button id="capture-btn" class="btn btn-primary btn-lg" disabled>
+                    <i class="bi bi-camera-fill me-2"></i> Capture
+                </button>
+            </div>
+
+            <div id="results-section" class="mt-4 d-none">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-gradient-primary text-white text-center py-3" style="border-radius: 10px 10px 0 0;">
+                        <h5 class="mb-0">Hasil Analisis</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <img id="captured-image" src="#" alt="Captured Image" 
+                             class="img-fluid rounded mb-3" style="max-height: 200px; border: 2px solid #eaeaea;">
+                        
+                        <!-- Status Ganjil/Genap -->
+                        <div class="status-result display-4 fw-bold text-secondary mb-3"></div>
+                        <div class="text-muted result-info"></div>
+                    </div>
+                    <!---<div class="card-footer bg-light text-center py-2" style="border-radius: 0 0 10px 10px;">
+                        <small class="text-muted">Analisis dilakukan menggunakan teknologi OCR</small>
+                    </div>--->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.getElementById('live-camera');
+    const toggleBtn = document.getElementById('toggle-camera');
+    const captureBtn = document.getElementById('capture-btn');
+    const placeholder = document.querySelector('.camera-placeholder');
+    const videoContainer = document.querySelector('.video-container');
+    const statusDisplay = document.getElementById('camera-status');
+    const resultsSection = document.getElementById('results-section');
+    
+    let stream = null;
+    let cameraOn = false;
+
+        toggleBtn.addEventListener('click', async function() {
+        if (!cameraOn) {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'environment' }
+                });
+                
+                video.srcObject = stream;
+                videoContainer.classList.remove('d-none');
+                placeholder.classList.add('d-none');
+                captureBtn.disabled = false;
+                
+                toggleBtn.innerHTML = '<i class="bi bi-camera-video-off me-2"></i> Matikan Kamera';
+                toggleBtn.classList.remove('btn-success');
+                toggleBtn.classList.add('btn-danger');
+                statusDisplay.textContent = "Status: Kamera aktif";
+                statusDisplay.className = "text-danger"; // Ubah warna menjadi merah
+                cameraOn = true;
+            } catch (err) {
+                console.error("Error accessing camera:", err);
+                statusDisplay.textContent = "Error: Tidak dapat mengakses kamera";
+                statusDisplay.className = "text-danger";
+            }
+        } else {
+            stream.getTracks().forEach(track => track.stop());
+            video.srcObject = null;
+            videoContainer.classList.add('d-none');
+            placeholder.classList.remove('d-none');
+            captureBtn.disabled = true;
+            
+            toggleBtn.innerHTML = '<i class="bi bi-camera-video me-2"></i> Hidupkan Kamera';
+            toggleBtn.classList.remove('btn-danger');
+            toggleBtn.classList.add('btn-success');
+            statusDisplay.textContent = "Status: Kamera mati";
+            statusDisplay.className = "text-muted"; // Ubah warna menjadi abu-abu
+            cameraOn = false;
+        }
+    });
+
+    captureBtn.addEventListener('click', function() {
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext('2d').drawImage(video, 0, 0);
+
+        const imageData = canvas.toDataURL('image/jpeg');
+        document.getElementById('captured-image').src = imageData;
+        resultsSection.classList.remove('d-none');
+
+        fetch('/from_camera', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `image_data=${encodeURIComponent(imageData)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                document.querySelector('.status-result').textContent = "Gagal";
+                document.querySelector('.result-info').innerHTML = `
+                    <p class="mb-1">Plat: -</p>
+                    <p class="mb-0">Angka Terakhir: -</p>
+                `;
+            } else {
+                document.querySelector('.status-result').textContent = data.status;
+
+                let angkaTerakhir = "-";
+                const angkaMatch = data.plate.match(/\d+/g);
+                if (angkaMatch) {
+                    const semuaAngka = angkaMatch.join('');
+                    if (semuaAngka.length > 0) {
+                        angkaTerakhir = semuaAngka[semuaAngka.length - 1];
+                    }
+                }
+
+                document.querySelector('.result-info').innerHTML = `
+                    <p class="mb-1">Plat: ${data.plate}</p>
+                    <p class="mb-0">Angka Terakhir: ${angkaTerakhir}</p>
+                `;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+
+    window.addEventListener('beforeunload', function() {
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+        }
+    });
+});
+</script>
+
+{% endblock %}

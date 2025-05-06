@@ -1,0 +1,322 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    transition: all 0.3s ease;
+    padding: 1rem;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Card Title */
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    text-align: center; /* Membuat judul berada di tengah */
+}
+
+
+/* Text Secondary */
+.text-secondary {
+    text-align: center; /* Membuat teks berada di tengah */
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+.btn-success {
+    background-color: #46989E;
+}
+
+.btn-success:hover {
+    background-color: #3A7F85;
+}
+
+.display-4 {
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.rounded-lg {
+    border-radius: 1rem !important;
+}
+
+.navbar-collapse {
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-item {
+    margin: 0 0.5rem;
+}
+
+@media (max-width: 900px) {
+    .navbar-nav .nav-item {
+        margin: 0;
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* Navbar */
+.navbar {
+    background-color: #ffffff; /* Warna putih minimalis */
+    padding: 1rem 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Bayangan lembut */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar:hover {
+    background-color: #f8f9fa; /* Warna abu-abu terang saat hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Bayangan lebih tegas */
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.navbar-logo {
+    height: 40px;
+    width: auto;
+    margin-right: 10px;
+}
+
+.brand-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c3e50; /* Warna teks gelap */
+}
+
+.navbar-nav .nav-link {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #2c3e50; /* Warna teks gelap */
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    border-radius: 5px;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ffffff;
+    background: linear-gradient(135deg, #57B4BA, #5F99AE)
+}
+
+/* Navbar Toggler */
+.navbar-toggler {
+    border: 2px solid #57B4BA; /* Border dengan warna biru kehijauan */
+    border-radius: 8px; /* Membuat tombol melengkung */
+    background-color: transparent; /* Latar belakang transparan */
+    padding: 0.5rem; /* Padding untuk ukuran tombol */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.navbar-toggler:hover {
+    background-color: #f8f9fa; /* Warna abu-abu terang saat hover */
+    border-color: #3A7F85; /* Border lebih gelap saat hover */
+}
+
+/* Navbar Toggler Icon */
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(87,%20180,%20186,%201)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    width: 1.5rem; /* Ukuran ikon */
+    height: 1.5rem;
+}
+
+/* Tambahkan jarak antara tombol Analisis dan kotak upload gambar */
+#upload-btn {
+    margin-top: 20px; /* Jarak 20px di atas tombol */
+}
+
+/* Container Tentang Kami */
+.tentang-kami-card {
+    background: linear-gradient(135deg, #ffffff, #f1f5f9); /* Gradien warna lembut */
+    border-radius: 15px; /* Radius lebih kecil */
+    padding: 2.5rem; /* Padding lebih proporsional */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Bayangan lembut */
+    color: #2c3e50; /* Warna teks utama */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tentang-kami-card:hover {
+    transform: translateY(-5px); /* Efek hover */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15); /* Bayangan lebih besar saat hover */
+}
+
+/* Judul Tentang Kami */
+.tentang-kami-title {
+    font-size: 2rem; /* Ukuran font lebih kecil */
+    font-weight: 700; /* Teks tebal */
+    color: #1e293b; /* Warna teks lebih gelap */
+    margin-bottom: 1.5rem;
+    text-align: center;
+    text-transform: uppercase; /* Huruf kapital */
+    letter-spacing: 0.5px; /* Spasi antar huruf lebih kecil */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Bayangan teks */
+}
+
+/* Teks Tentang Kami */
+.tentang-kami-text {
+    font-size: 1rem; /* Ukuran font lebih kecil */
+    line-height: 1.6; /* Jarak antar baris lebih rapat */
+    color: #475569; /* Warna teks abu-abu gelap */
+    margin-bottom: 1.25rem;
+    text-align: justify; /* Rata kanan-kiri */
+}
+
+.tentang-kami-text strong {
+    color: #3A7F85; /* Warna biru gelap untuk teks penting */
+    font-weight: 600; /* Teks tebal */
+}
+
+.tentang-kami-text .highlight {
+    color: #3A7F85; /* Warna biru cerah */
+    font-weight: 500; /* Teks sedikit tebal */
+    background: rgba(14, 165, 233, 0.1); /* Highlight dengan latar belakang */
+    padding: 0 0.15rem; /* Padding lebih kecil */
+    border-radius: 3px; /* Membuat highlight melengkung */
+}
+
+/* Tombol Selengkapnya */
+.tentang-kami-btn {
+    background: none; /* Menghilangkan background */
+    color: #57B4BA; /* Warna teks biru kehijauan */
+    font-size: 1rem; /* Ukuran font */
+    font-weight: 600; /* Teks tebal */
+    text-transform: none; /* Tidak menggunakan huruf kapital semua */
+    border: 2px solid #57B4BA; /* Border dengan warna biru kehijauan */
+    border-radius: 8px; /* Radius lebih kecil */
+    padding: 0.5rem 1.25rem; /* Padding lebih kecil */
+    text-decoration: none; /* Menghilangkan garis bawah */
+    transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.tentang-kami-btn:hover {
+    color: #3A7F85; /* Warna teks lebih gelap saat hover */
+    border-color: #3A7F85; /* Border lebih gelap saat hover */
+    transform: scale(1.05); /* Efek zoom saat hover */
+}
+
+/* Hero Card */
+.hero-card {
+    background: linear-gradient(135deg, #57B4BA, #5F99AE); /* Gradien warna */
+    color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #f8f9fa;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.hero-card .btn-primary {
+    background-color: #46989E;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.hero-card .btn-primary:hover {
+    background-color: #3A7F85;
+    transform: scale(1.05);
+}
+
+/* Tombol Global */
+.btn {
+    background: linear-gradient(135deg, #57B4BA, #5F99AE); /* Gradien warna */
+    color: #fff; /* Warna teks putih */
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none; /* Menghilangkan garis bawah */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, #3A7F85, #4A8A9E); /* Gradien lebih gelap saat hover */
+    transform: scale(1.05); /* Efek zoom saat hover */
+    color: #fff; /* Pastikan teks tetap putih */
+}
+
+.footer {
+    background-color: #ffffff; /* Warna putih untuk background */
+    border-top: 1px solid #eaeaea; /* Garis pemisah di atas footer */
+    color: #212529; /* Warna teks default */
+}
+.footer-logo {
+    max-width: 150px; /* Ukuran maksimum logo */
+    height: auto;
+}
+.footer p {
+    color: #212529; /* Warna teks deskripsi */
+    margin: 0;
+    font-size: 1rem;
+}
+.footer small {
+    color: #6c757d; /* Warna teks hak cipta */
+    font-size: 0.875rem;
+}
+
+/* Card Hasil Analisis */
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+}
+.card-header {
+    background: linear-gradient(135deg, #3A7F85, #2C5364);
+    color: #ffffff;
+    font-weight: bold;
+}
+.card-body img {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.status-result {
+    font-size: 2.5rem;
+    color: #6c757d; /* Warna abu-abu */
+}
+.result-info {
+    font-size: 1rem;
+    color: #6c757d; /* Warna abu-abu untuk informasi tambahan */
+}
+.card-footer {
+    background-color: #f8f9fa;
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+

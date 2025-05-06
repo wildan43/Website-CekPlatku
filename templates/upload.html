@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .instructions-card {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .instructions-card h5 {
+        color: #3A7F85;
+        font-weight: bold;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    .instructions-card p {
+        margin: 0;
+        font-size: 1rem;
+        color: #6c757d;
+        line-height: 1.4;
+    }
+    .instructions-card i {
+        font-size: 1.5rem;
+        color: #3A7F85;
+        margin-right: 10px; /* Menambahkan jarak antara ikon dan teks */
+    }
+    .d-flex {
+        gap: 10px; /* Alternatif untuk mengatur jarak antara ikon dan teks */
+    }
+
+    .upload-cam {
+        color: #3A7F85;
+        font-weight: bold;
+    }
+
+    .upload-container {
+        border: 2px dashed #3A7F85;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        background: #f8f9fa;
+        min-height: 250px;
+        position: relative;
+    }
+    .upload-container.dragover {
+        background: #e9fcef;
+        border-color: #46989E;
+    }
+    .preview-wrapper {
+        position: relative;
+        padding: 15px;
+    }
+    .btn-remove-preview {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    background: none; 
+    border: none; 
+    color: #dc3545; 
+    font-size: 1.5rem; 
+    cursor: pointer; 
+    }
+
+    .btn-remove-preview:hover {
+        color: #a71d2a; /* Warna merah lebih gelap saat hover */
+    }
+</style>
+
+<div class="container mt-5">
+    <h1 class="mb-4 text-center upload-cam">Upload Gambar</h1>
+
+    <!-- Instructions Section -->
+    <div class="instructions-card mx-auto" style="max-width: 600px;">
+        <h5><i class="bi bi-info-circle-fill"></i> Cara Menggunakan Fitur Upload Gambar</h5>
+        <p><i class="bi bi-camera-video"></i> 1. Klik <strong>"Pilih File"</strong> atau seret gambar ke area yang disediakan.</p>
+        <p><i class="bi bi-arrow-up-right-circle"></i> 2. Unggah gambar dalam format <strong>JPG, PNG, atau JPEG</strong></p>
+        <p><i class="bi bi-camera-fill"></i> 3. Periksa pratinjau gambar yang muncul setelah diunggah.</p>
+        <p><i class="bi bi-check-circle-fill"></i> 4. Klik <strong>"Analisis"</strong> untuk mendapatkan hasil analisis.</p>
+    </div>
+    
+    <div class="card border-success w-75 mx-auto" style="max-width: 600px;">        
+        <div class="card-body">
+            <div id="upload-container" class="upload-container">
+                <!-- Upload Instructions -->
+                <div id="upload-instructions" class="text-center p-5">
+                    <i class="bi bi-cloud-upload display-4 text-muted mb-3"></i>
+                    <p class="text-muted mb-1">
+                        Drag & drop gambar di sini atau
+                    </p>
+                    <label class="btn btn-success btn-lg px-5 rounded-pill">
+                        <i class="bi bi-folder2-open me-2"></i>Pilih File
+                        <input type="file" 
+                               name="file" 
+                               id="file"
+                               required
+                               accept="image/*"
+                               hidden
+                               onchange="handleFileSelect(event)">
+                    </label>
+                    <p class="text-muted mt-2 small">
+                        Format yang didukung: JPG, PNG, JPEG (Maks. 5MB)
+                    </p>
+                </div>
+
+                <!-- Image Preview Inside Container -->
+                <div id="preview-section" class="preview-wrapper d-none">
+                    <button type="button" class="btn-remove-preview" onclick="clearPreview()">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                    <img id="preview" src="#" alt="Preview Gambar" 
+                         class="img-fluid rounded h-100 w-100 object-fit-cover">
+                </div>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" id="upload-btn" class="btn btn-success btn-lg" disabled>
+                    <i class="bi bi-search me-2"></i>Analisis
+                </button>
+            </div>
+
+            <div class="card-body text-center mt-4">
+                <div id="result-container" class="d-none">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-gradient-primary text-white text-center py-3" style="border-radius: 10px 10px 0 0;">
+                            <h5 class="mb-0">Hasil Analisis</h5>
+                        </div>
+                        <div class="card-body text-center">
+                            <!-- Status Ganjil/Genap -->
+                            <div class="status-result display-4 fw-bold text-secondary mb-3"></div>
+                            <div class="text-muted result-info"></div>
+                        </div>
+                        <!---<div class="card-footer bg-light text-center py-2" style="border-radius: 0 0 10px 10px;">
+                            <small class="text-muted">Hasil analisis ini didukung oleh teknologi AI dan pengolahan gambar cerdas</small>
+                        </div>--->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function handleFileSelect(event) {
+    const file = event.target.files[0];
+    const container = document.getElementById('upload-container');
+    const previewSection = document.getElementById('preview-section');
+    const uploadInstructions = document.getElementById('upload-instructions');
+    const preview = document.getElementById('preview');
+    const uploadBtn = document.getElementById('upload-btn');
+
+    if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            uploadInstructions.classList.add('d-none');
+            previewSection.classList.remove('d-none');
+            container.style.border = 'none';
+            container.style.background = 'transparent';
+            uploadBtn.disabled = false;  // Enable the analyze button
+        }
+        
+        reader.readAsDataURL(file);
+    }
+}
+
+function clearPreview() {
+    const fileInput = document.getElementById('file');
+    const previewSection = document.getElementById('preview-section');
+    const uploadInstructions = document.getElementById('upload-instructions');
+    const container = document.getElementById('upload-container');
+    const uploadBtn = document.getElementById('upload-btn');
+    
+    fileInput.value = '';
+    previewSection.classList.add('d-none');
+    uploadInstructions.classList.remove('d-none');
+    container.style.border = '2px dashed #28a745';
+    container.style.background = '#f8f9fa';
+    uploadBtn.disabled = true;  // Disable the analyze button
+}
+
+// Handle Form submission via fetch
+document.getElementById('upload-btn').addEventListener('click', async function() {
+    const formData = new FormData();
+    const fileInput = document.getElementById('file');
+
+    formData.append('file', fileInput.files[0]);
+
+    const response = await fetch('/upload', {
+        method: 'POST',
+        body: formData
+    });
+
+    const result = await response.json();
+
+    const resultContainer = document.getElementById('result-container');
+    const statusResult = document.querySelector('.status-result');
+    const resultInfo = document.querySelector('.result-info');
+    // const capturedImage = document.getElementById('captured-image');
+
+    if (result.error) {
+        statusResult.textContent = "Gagal";
+        resultInfo.innerHTML = `
+            <p class="mb-1">Plat: -</p>
+            <p class="mb-0">Angka Terakhir: -</p>
+        `;
+        capturedImage.src = '';  // Clear image if error occurs
+    } else {
+        statusResult.textContent = result.status;
+
+        let angkaTerakhir = "-";
+        const angkaMatch = result.plate.match(/\d+/g);
+        if (angkaMatch) {
+            const semuaAngka = angkaMatch.join('');
+            if (semuaAngka.length > 0) {
+                angkaTerakhir = semuaAngka[semuaAngka.length - 1];
+            }
+        }
+
+        resultInfo.innerHTML = `
+            <p class="mb-1">Plat: ${result.plate}</p>
+            <p class="mb-0">Angka Terakhir: ${angkaTerakhir}</p>
+        `;
+        //capturedImage.src = result.image_url;  // Assuming the backend returns the image URL
+    }
+
+    resultContainer.classList.remove('d-none');
+});
+</script>
+
+{% endblock %}

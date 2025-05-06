@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    /* Container utama */
+    .about-container {
+        max-width: 95%; /* Lebar 95% layar */
+        margin: 2rem auto; /* Margin atas dan bawah */
+        padding: 3rem; /* Padding lebih besar */
+        background: linear-gradient(135deg, #57B4BA, #5F99AE); /* Gradien warna */
+        border-radius: 20px; /* Radius lebih besar */
+        color: #fff;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Bayangan lebih tegas */
+    }
+
+    /* Judul */
+    .about-title {
+        font-size: 3rem; /* Ukuran font lebih besar */
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 2rem;
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3); /* Bayangan teks lebih tegas */
+    }
+
+    /* Subjudul */
+    .about-subtitle {
+        font-size: 1.5rem; /* Ukuran font lebih besar */
+        font-weight: 500;
+        text-align: center;
+        margin-bottom: 2.5rem;
+        color: #f8f9fa;
+    }
+
+    /* List Fitur */
+    .about-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .about-list li {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px; /* Radius lebih besar */
+        padding: 1rem 1.5rem; /* Padding lebih besar */
+        margin-bottom: 1rem; /* Jarak antar item lebih besar */
+        display: flex;
+        align-items: center;
+        gap: 15px; /* Jarak antara ikon dan teks */
+        color: #fff;
+        font-size: 1.25rem; /* Ukuran font lebih besar */
+    }
+
+    .about-list li i {
+        font-size: 1.75rem; /* Ukuran ikon lebih besar */
+        color: #f8f9fa;
+    }
+
+    /* Teknologi */
+    .tech-section {
+        margin-top: 3rem; /* Jarak lebih besar */
+    }
+
+    .tech-title {
+        font-size: 2rem; /* Ukuran font lebih besar */
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .tech-list {
+        display: flex;
+        justify-content: space-between;
+        gap: 2rem; /* Jarak antar kolom lebih besar */
+    }
+
+    .tech-list ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .tech-list li {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px; /* Radius lebih besar */
+        padding: 0.75rem 1.5rem; /* Padding lebih besar */
+        margin-bottom: 1rem; /* Jarak antar item lebih besar */
+        color: #fff;
+        font-size: 1.25rem; /* Ukuran font lebih besar */
+    }
+</style>
+
+<div class="about-container">
+    <h1 class="about-title">Tentang Kami</h1>
+    <p class="about-subtitle">
+        Sistem ini dirancang untuk membantu Anda menentukan status ganjil-genap kendaraan dengan cepat dan akurat.
+    </p>
+
+    <h5 class="tech-title">Fitur Utama</h5>
+    <ul class="about-list">
+        <li><i class="bi bi-check-circle"></i> Deteksi plat nomor dari gambar</li>
+        <li><i class="bi bi-check-circle"></i> Klasifikasi angka ganjil/genap</li>
+        <li><i class="bi bi-check-circle"></i> Antarmuka pengguna yang responsif</li>
+        <li><i class="bi bi-check-circle"></i> Dukungan analisis real-time</li>
+    </ul>
+
+    <div class="tech-section">
+        <h5 class="tech-title">Teknologi yang Digunakan</h5>
+        <div class="tech-list">
+            <ul>
+                <li>Python</li>
+                <li>OpenCV</li>
+                <li>Yolo</li>
+                <li>OCR Engine</li>
+            </ul>
+            <ul>
+                <li>Flask</li>
+                <li>Bootstrap 5</li>
+                <li>HTML5/CSS3</li>
+                <li>Javascript</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
