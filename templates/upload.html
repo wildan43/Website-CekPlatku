@@ -66,6 +66,33 @@
     .btn-remove-preview:hover {
         color: #a71d2a; /* Warna merah lebih gelap saat hover */
     }
+
+    @media (max-width: 576px) {
+    .card.w-75.mx-auto {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        border-radius: 0 !important;
+    }
+    .upload-container {
+        min-height: 160px !important;
+        padding: 0.5rem !important;
+    }
+    .preview-wrapper {
+        padding: 0.5rem !important;
+    }
+    .btn.btn-success.btn-lg.px-5.rounded-pill {
+        width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        border-radius: 8px !important;
+    }
+    .img-fluid {
+        max-height: 180px !important;
+        object-fit: contain !important;
+    }
+}
 </style>
 
 <div class="container mt-5">

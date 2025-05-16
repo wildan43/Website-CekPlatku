@@ -71,6 +71,40 @@
         width: auto;
         max-width: 100%;
     }
+
+    /* Responsif untuk card utama dan elemen di dalamnya */
+@media (max-width: 576px) {
+    .card.w-75.mx-auto {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        border-radius: 0 !important;
+    }
+    .camera-container {
+        min-height: 160px !important;
+        padding: 0.5rem !important;
+    }
+    .camera-placeholder {
+        padding: 1rem !important;
+    }
+    .camera-icon {
+        font-size: 2.2rem !important;
+    }
+    #live-camera {
+        max-height: 140px !important;
+        width: 100% !important;
+        border-radius: 8px !important;
+    }
+    .controls {
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+    }
+    .card-header, .card-body, .card-footer {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+}
 </style>
 
 <div class="container mt-5">
